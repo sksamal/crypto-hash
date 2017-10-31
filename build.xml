@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Cryptography" default="dist" basedir=".">
+	 <!-- set global properties for this build -->
+	  <property name="src" location="src"/>
+	  <property name="build" location="build"/>
+	  <property name="lib" location="lib"/>
+	
+	<path id="project.class.path">  
+	    <pathelement location="."/>  
+	    <pathelement path="${java.class.path}/"/>
+	    <pathelement path="lib/pitaya-0.3.jar"/>
+	</path> 
+	
+	<target name="init">
+	    <!-- Create the time stamp -->
+	    <tstamp/>
+	    <!-- Create the build directory structure used by compile -->
+	    <mkdir dir="${build}"/>
+	  </target>
+
+	  <target name="compile" depends="init"
+	        description="compile the source " >
+	    <!-- Compile the java code from ${src} into ${build} -->
+	    <javac includeantruntime="false" srcdir="${src}" destdir="${build}" classpathref="project.class.path"/>
+	  </target>
+	
+	  <target name="build" depends="init"
+		        description="compile the source " >
+		    <!-- Compile the java code from ${src} into ${build} -->
+		    <javac includeantruntime="false" srcdir="${src}" destdir="${build}" classpathref="project.class.path"/>
+		  </target>
+	
+
+  	  <target name="dist" depends="compile"
+	        description="generate the distribution" >
+	    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar destfile="crypto.jar" basedir="${build}">
+  	            <manifest>
+  	                <attribute name="Main-Class" value="org.unl.cryptoanalysis.tools.MainHandler"/>
+			<attribute name="Class-Path" value="lib/pitaya-0.3.jar"/>
+  	            </manifest>
+  	    </jar> 
+  		<exec executable="chmod"> 
+  			<arg line="+x ./crypto.jar"/>
+  		</exec>
+	 </target>
+	
+	<target name="test" depends="dist"
+		        description="test the distribution" >
+		    <exec executable="/usr/bin/java"> 
+		  			<arg line="-cp ./crypto.jar org.unl.cryptoanalysis.tools.Tests "/>
+		  	</exec>
+	</target>
+	<target name="zipsrc" description="Archive the source to a zip" >
+						    <exec executable="zip"> 
+						  			<arg line="-r crypto.zip src lib data/passwd.sha1 data/passwd.md4 data/passwd.md5 data/passwd.sha3 data/passwd.sha256 data/passwd.pbkdf2 build.xml README"/>
+						  	</exec>
+							<exec executable="echo">
+					  			<arg line="crypto.zip created successfully"/>
+							 </exec>
+			
+	</target>
+	
+	<target name="clean"
+	        description="Clean up" >
+	    <!-- Delete the ${build} and ${dist} directory trees -->
+	    <delete dir="${build}"/>
+	  	 <delete>
+	  	    <fileset dir="." includes="crypto.jar"/>
+	  	  </delete>
+	  </target>
+</project>																																																																																																																																																																																																																																																																																																																																																																																														

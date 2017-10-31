@@ -1,0 +1,36 @@
+Author: Suraj Ketan Samal
+LastUpdated: Nov 11,2015
+
+BUILDING THE PROGRAM
+   user@host> ant
+		OR
+	      "ant build" followed by "ant dist"
+
+RUNNING THE PROGRAM
+   	java -jar crypto.jar <i> [fileName] [algorithm]
+	 where i = 
+	1. MD5 and SHA-1 Implementation (Problem 1)
+		Example:
+			java -jar crypto.jar 1 inp.txt md5 
+ 			OR
+			java -jar crypto.jar 1 inp.txt sha1
+
+    	2. Generate Rainbow Tables (Problem 2)
+		Example:
+			java -jar crypto.jar 2
+
+    	3. Break Hashes (Problem 3)
+		Example:
+			java -jar crypto.jar 3
+
+  *NOTE* : For Problem 2/3, additionally,rainbow table files (rtables.zip) were huge, I have archived and put it at two locations below:
+
+   a) CSE Server : http://cse.unl.edu/~ssamal/crypto/rtables.zip
+   b) Google Drive:  https://drive.google.com/file/d/0B4A4VgzW2NCqdEJzQ1I1a1lqNzA/view?pli=1 
+   Please download and put it within the data folder.
+
+
+OTHER OPTIONS
+    user@host> ant clean  --> To clean the build directory.
+    user@host> ant test   --> Basic tests for MD5/SHA1.
+    user@host> ant zipsrc --> Archive this program to a zip file.
